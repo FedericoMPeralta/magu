@@ -34,18 +34,18 @@ export default function Home() {
             priority
             style={{ width: "auto" }}
           />
-          <nav className="flex items-center gap-53">
+          <nav className="flex items-center gap-80 mx-auto">
             <a href="#" className="font-[family-name:var(--font-dm-sans)] text-[#F6F4EE] text-lg tracking-wide hover:opacity-70 transition-opacity font-medium">Planes Move</a>
             <a href="#" className="font-[family-name:var(--font-dm-sans)] text-[#F6F4EE] text-lg tracking-wide hover:opacity-70 transition-opacity font-medium">Agenda</a>
             <a href="#" className="font-[family-name:var(--font-dm-sans)] text-[#F6F4EE] text-lg tracking-wide hover:opacity-70 transition-opacity font-medium">Nosotros</a>
             <a href="#" className="font-[family-name:var(--font-dm-sans)] text-[#F6F4EE] text-lg tracking-wide hover:opacity-70 transition-opacity">Contacto</a>
-
-            {/* Mi Perfil */}
-            <div className="flex items-center gap-3">
-              <span className="font-[family-name:var(--font-dm-sans)] text-[#F6F4EE] font-medium text-lg">Mi perfil</span>
-              <div className="w-9 h-9 rounded-full border-2 border-white bg-white" />
-            </div>
           </nav>
+
+          {/* Mi Perfil */}
+          <div className="flex items-center gap-3">
+            <span className="font-[family-name:var(--font-dm-sans)] text-[#F6F4EE] font-medium text-lg">Mi perfil</span>
+            <div className="w-9 h-9 rounded-full border-2 border-white bg-white" />
+          </div>
         </header>
 
         {/* Texto central */}
@@ -60,31 +60,66 @@ export default function Home() {
 
       {/* Sección de planes */}
       <section style={{ backgroundColor: "#CCE1E2" }} className="px-16 py-24">
-        <p className="font-[family-name:var(--font-instrument-serif)] text-[#1a1a1a] text-4xl text-center max-w-7xl mx-auto leading-relaxed mb-24">
+        <p className="font-[family-name:var(--font-instrument-serif)] text-[#1a1a1a] text-4xl text-center max-w-7xl mx-auto leading-none mb-24">
           Cada cuerpo tiene su propio pulso interno por eso creamos un ecosistema de planes flexibles diseñado para adaptarse al ritmo, el contexto y las necesidades reales de cada persona.
         </p>
 
         <div className="flex gap-6 px-4">
-          {[1, 2, 3, 4].map((i) => (
+          {[
+            { question: "¿Tenés poco tiempo y querés moverte pero a tu ritmo?", planName: "Move Sync", proximamente: false },
+            { question: "¿Buscás un espacio de calma y de reencuentro con vos?", planName: "Move Yogui", proximamente: false },
+            { question: "¿Te gusta entrenar sola y de forma presencial?", planName: "Move One", proximamente: false },
+            { question: "¿Buscás moverte en grupo?", planName: "Move Active", proximamente: true },
+          ].map((item, i) => (
             <div
               key={i}
-              className="flex flex-col justify-between p-8 rounded-3xl"
+              className="flex flex-col justify-between p-8 rounded-3xl relative overflow-hidden"
               style={{
                 boxShadow: "0 0 0 1px rgba(0,0,0,0.15), 0 4px 24px rgba(0,0,0,0.10)",
                 flex: 1,
-                minHeight: "420px",
+                minHeight: "520px",
+                isolation: "isolate",
               }}
             >
-              <p className="font-[family-name:var(--font-instrument-serif)] text-[#1a1a1a] text-8xl leading-none">
-                ¿Tenés poco tiempo y querés moverte pero a tu ritmo?
-              </p>
-              <p className="font-[family-name:var(--font-dm-sans)] text-[#1a1a1a] text-4xl mt-4">
-                <span className="underline underline-offset-4 italic">Move Sync</span> es para vos.
-              </p>
-              <button className="font-[family-name:var(--font-dm-sans)] mt-8 self-start flex items-center gap-2 px-6 py-2 rounded-full border border-[#1a1a1a] text-[#1a1a1a] text-base hover:bg-[#1a1a1a] hover:text-white transition-all">
-                Descubrir más <span>→</span>
-              </button>
-            </div>
+              {/* Listón Próximamente */}
+              {item.proximamente && (
+                <div
+                  className="absolute font-[family-name:var(--font-dm-sans)] text-[#1a1a1a] font-medium"
+                  style={{
+                    backgroundColor: "#A4BEC6",
+                    top: "80px",
+                    right: "-180px",
+                    width: "750px",
+                    height: "65px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "24px",
+                    transform: "rotate(25deg)",
+                    transformOrigin: "center",
+                    zIndex: 10,
+                    opacity: 1,
+                    letterSpacing: "0.2em",
+                  }}
+                >
+                  PRÓXIMAMENTE
+                </div>
+              )}
+
+              <div className="flex flex-col justify-between h-full" style={{ opacity: item.proximamente ? 0.15 : 1 }}>
+                <div className="flex flex-col gap-8">
+                  <p className="font-[family-name:var(--font-instrument-serif)] text-[#1a1a1a] text-8xl leading-none">
+                    {item.question}
+                  </p>
+                  <p className="font-[family-name:var(--font-instrument-serif)] text-[#1a1a1a] text-5xl">
+                    <span className="underline underline-offset-4 italic">{item.planName}</span> es para vos.
+                  </p>
+                </div>
+                <button className="font-[family-name:var(--font-dm-sans)] mt-16 self-start flex items-center gap-3 px-8 py-4 rounded-full border border-[#1a1a1a] text-[#1a1a1a] text-xl hover:bg-[#1a1a1a] hover:text-white transition-all">
+                  Descubrir más <span>→</span>
+                </button>
+              </div>
+          </div>
           ))}
         </div>
       </section>
@@ -95,7 +130,7 @@ export default function Home() {
       <section style={{ backgroundColor: "#D7FCA4", minHeight: "100vh" }} className="py-24 flex flex-col">
 
         {/* Título */}
-        <p className="font-[family-name:var(--font-instrument-serif)] text-[#1a1a1a] text-4xl text-center max-w-7xl mx-auto leading-relaxed mb-24">
+        <p className="font-[family-name:var(--font-instrument-serif)] text-[#1a1a1a] text-5xl text-center max-w-7xl mx-auto leading-relaxed mb-24">
           Preguntas frecuentes
         </p>
 
@@ -120,7 +155,7 @@ export default function Home() {
         {/* Botón */}
         <div className="flex justify-center mt-16">
           <button
-            className="font-[family-name:var(--font-dm-sans)] flex items-center gap-2 px-8 py-3 rounded-full border border-[#1a1a1a] text-[#1a1a1a] text-base hover:opacity-80 transition-all"
+            className="font-[family-name:var(--font-dm-sans)] flex items-center gap-2 px-8 py-3 rounded-full text-[#1a1a1a] text-xl hover:opacity-80 transition-all"
             style={{ backgroundColor: "#CCE1E2" }}
           >
             Ver todos los planes <span>→</span>
@@ -129,9 +164,9 @@ export default function Home() {
       </section>
 
       {/* Sección Nosotros */}
-      <section style={{ backgroundColor: "#D7FCA4", minHeight: "100vh" }} className="py-24 flex flex-col">
+      <section style={{ backgroundColor: "#D7FCA4", minHeight: "100vh" }} className="py-0 flex flex-col">
         {/* Texto pequeño */}
-        <p className="font-[family-name:var(--font-instrument-seri)] text-[#1a1a1a] text-xl mb-6 text-center">
+        <p className="font-[family-name:var(--font-instrument-serif)] text-[#1a1a1a] text-5xl mb-6 text-center">
           Liderado por Magus Cigana
         </p>
 
@@ -156,7 +191,7 @@ export default function Home() {
 
         <div className="flex justify-center">
           <button
-            className="font-[family-name:var(--font-dm-sans)] flex items-center gap-2 px-8 py-3 rounded-full border border-[#1a1a1a] text-[#1a1a1a] text-base hover:opacity-80 transition-all"
+            className="font-[family-name:var(--font-dm-sans)] flex items-center gap-2 px-8 py-3 rounded-full text-[#1a1a1a] text-2xl hover:opacity-80 transition-all"
             style={{ backgroundColor: "#CCE1E2" }}
           >
             Quiénes somos <span>→</span>
@@ -170,32 +205,30 @@ export default function Home() {
       <section style={{ backgroundColor: "#CCE1E2" }} className="py-24 flex flex-col">
 
         {/* Título */}
-        <p className="font-[family-name:var(--font-instrument-serif)] text-[#1a1a1a] text-4xl text-center mx-auto leading-relaxed mb-12 px-16">
+        <p className="font-[family-name:var(--font-instrument-serif)] text-[#1a1a1a] text-5xl text-center mx-auto leading-relaxed mb-12 px-16">
           Nuestro método para sostener el movimiento
         </p>
 
         {/* Línea superior */}
         <div style={{ borderTop: "1px solid #1a1a1a" }} />
 
-        {/* Carrusel */}
-        <div className="flex gap-16 overflow-x-auto px-16 py-12 scrollbar-hide">
+        {/* Items */}
+        <div className="flex gap-20 px-64 py-12 justify-center">
           {[
-            { num: "01", titulo: "Trabajar la conciencia corporal" },
-            { num: "02", titulo: "Movimiento según tu ritmo" },
-            { num: "01", titulo: "Trabajar la conciencia corporal" },
-            { num: "02", titulo: "Movimiento según tu ritmo" },
-            { num: "01", titulo: "Trabajar la conciencia corporal" },
-            { num: "02", titulo: "Movimiento según tu ritmo" },
+            { num: "01", titulo: "Trabajar\n la conciencia\n corporal" },
+            { num: "02", titulo: "Movimiento\nsegún\ntu ritmo" },
+            { num: "03", titulo: "Paciencia, frecuencia\n y constancia" },
+            { num: "04", titulo: "Guía y monitoreo constante" },
           ].map((item, i) => (
-            <div key={i} className="flex flex-col gap-4 min-w-[350px]">
+            <div key={i} className="flex flex-col gap-4" style={{ width: "750px" }}>
               <span className="font-[family-name:var(--font-dm-sans)] text-[#1a1a1a] text-xl underline underline-offset-4 text-center">
                 {item.num}
               </span>
-              <p className="font-[family-name:var(--font-instrument-serif)] text-[#1a1a1a] text-8xl leading-tight text-center">
+              <p className="font-[family-name:var(--font-instrument-serif)] text-[#1a1a1a] text-8xl leading-none text-center whitespace-pre-line">
                 {item.titulo}
               </p>
-              <p className="font-[family-name:var(--font-dm-sans)] text-[#1a1a1a] text-base leading-relaxed text-center">
-                Descubrí nuestros planes de entrenamiento con clases, seguimiento y mucho más.
+              <p className="font-[family-name:var(--font-dm-sans)] text-[#1a1a1a] text-base leading-tight text-center">
+                Descubrí nuestros planes de<br /> entrenamiento con clases,<br /> seguimiento y mucho más.
               </p>
             </div>
           ))}
@@ -205,17 +238,17 @@ export default function Home() {
         <div style={{ borderTop: "1px solid #1a1a1a" }} />
 
       </section>
-            {/* Sección Agenda */}
+      {/* Sección Agenda */}
       <section style={{ backgroundColor: "#CCE1E2" }} className="py-24 flex flex-col px-16">
 
         {/* Título pequeño */}
-        <p className="font-[family-name:var(--font-instrument-serif)] text-[#1a1a1a] text-4xl text-center mx-auto leading-relaxed mb-12 px-16">
-          Agenda: Eventos, charlas y novedades
+        <p className="font-[family-name:var(--font-instrument-serif)] text-[#1a1a1a] text-5xl text-center mx-auto leading-relaxed mb-12 px-16">
+          Agenda: <span className="italic">Eventos, charlas y novedades</span> 
         </p>
 
         {/* Título grande centrado */}
-        <p className="font-[family-name:var(--font-instrument-serif)] text-[#1a1a1a] text-8xl leading-tight text-center max-w-5xl mx-auto mb-24">
-          Moverse como estilo de vida también implica nutrirse y encontrarse con un otro.
+        <p className="font-[family-name:var(--font-instrument-serif)] text-[#1a1a1a] text-8xl leading-tight text-center max-w-8xl mx-auto mb-24">
+          Moverse como estilo de vida también implica<br /> nutrirse y encontrarse con un otro.
         </p>
 
         {/* Carrusel */}
@@ -297,7 +330,7 @@ export default function Home() {
         {/* Botón ver agenda */}
         <div className="flex justify-center mt-16">
           <button
-            className="font-[family-name:var(--font-dm-sans)] flex items-center gap-2 px-8 py-3 rounded-full border border-[#1a1a1a] text-[#1a1a1a] text-base hover:opacity-80 transition-all"
+            className="font-[family-name:var(--font-dm-sans)] flex items-center gap-2 px-8 py-3 rounded-full border border-[#1a1a1a] text-[#1a1a1a] text-2xl hover:opacity-80 transition-all"
             style={{ backgroundColor: "#CCE1E2" }}
           >
             Ver agenda completa <span>→</span>
@@ -349,13 +382,13 @@ export default function Home() {
           />
         </div>
 
-        <div className="max-w-7xl mx-auto w-full flex flex-col lg:flex-row items-center justify-between gap-12">
+        <div className="w-full flex flex-col lg:flex-row items-center justify-between" style={{ paddingLeft: "450px", paddingRight: "600px" }}>
           {/* Columna Izquierda: Títulos */}
           <div className="flex flex-col gap-2 text-left">
             <span className="font-[family-name:var(--font-dm-sans)] text-[#d7fca4] tracking-[0.3em] text-xs uppercase border-b border-[#d7fca4]/30 pb-1 self-start">
               NEWSLETTER
             </span>
-            <h2 className="font-[family-name:var(--font-instrument-serif)] text-[#d7fca4] text-7xl md:text-8xl not-italic font-normal tracking-tight leading-tight">
+            <h2 className="font-[family-name:var(--font-instrument-serif)] text-[#d7fca4] text-7xl md:text-9xl not-italic font-normal tracking-tight leading-tight">
               Club<span className="italic">Move</span>
             </h2>
             <p className="font-[family-name:var(--font-instrument-serif)] text-[#d7fca4] text-3xl md:text-4xl">
@@ -389,17 +422,17 @@ export default function Home() {
             {/* Input de email con botón integrado */}
             <form
               onSubmit={(e) => e.preventDefault()}
-              className="relative flex items-center w-full max-w-xl bg-[#b9d1d3]/90 backdrop-blur-sm rounded-full p-1.5 shadow-inner"
+              className="relative flex items-center w-full max-w-2xl bg-[#b9d1d3]/90 backdrop-blur-sm rounded-full p-1.5 shadow-inner"
             >
               <input
                 type="email"
                 placeholder="mail@gmail.com"
                 required
-                className="w-full bg-transparent px-6 py-3 font-[family-name:var(--font-dm-sans)] text-[#1a1a1a] placeholder-[#1a1a1a]/60 focus:outline-none text-base"
+                className="w-full bg-transparent px-7 py-3 font-[family-name:var(--font-dm-sans)] text-[#1a1a1a] placeholder-[#1a1a1a]/60 focus:outline-none text-lg"
               />
               <button
                 type="submit"
-                className="font-[family-name:var(--font-dm-sans)] bg-[#d7fca4] text-[#1a1a1a] px-8 py-3 rounded-full font-medium text-base hover:opacity-90 transition-all flex items-center gap-2 whitespace-nowrap shadow-sm"
+                className="font-[family-name:var(--font-dm-sans)] bg-[#d7fca4] text-[#1a1a1a] px-9 py-3 rounded-full font-medium text-lg hover:opacity-90 transition-all flex items-center gap-2 whitespace-nowrap shadow-sm"
               >
                 Suscribite ahora <span>→</span>
               </button>
@@ -414,14 +447,14 @@ export default function Home() {
         <div style={{ borderTop: "1px solid #1a1a1a" }} className="mb-12" />
 
         {/* Botonera + Logo */}
-        <div className="flex items-center justify-between px-32">
+        <div className="flex items-center justify-between px-50">
           
           {/* Links */}
-          <nav className="flex items-center gap-24">
-            <a href="#" className="font-[family-name:var(--font-dm-sans)] text-[#1a1a1a] text-2xl hover:opacity-60 transition-opacity">Términos y condiciones</a>
-            <a href="#" className="font-[family-name:var(--font-dm-sans)] text-[#1a1a1a] text-2xl hover:opacity-60 transition-opacity">Política de privacidad</a>
-            <a href="#" className="font-[family-name:var(--font-dm-sans)] text-[#1a1a1a] text-2xl hover:opacity-60 transition-opacity">Contacto</a>
-            <a href="#" className="font-[family-name:var(--font-dm-sans)] text-[#1a1a1a] text-2xl hover:opacity-60 transition-opacity">Volver al inicio</a>
+          <nav className="flex items-center gap-50">
+            <a href="#" className="font-[family-name:var(--font-dm-sans)] text-[#1a1a1a] text-xl hover:opacity-60 transition-opacity">Términos y condiciones</a>
+            <a href="#" className="font-[family-name:var(--font-dm-sans)] text-[#1a1a1a] text-xl hover:opacity-60 transition-opacity">Política de privacidad</a>
+            <a href="#" className="font-[family-name:var(--font-dm-sans)] text-[#1a1a1a] text-xl hover:opacity-60 transition-opacity">Contacto</a>
+            <a href="#" className="font-[family-name:var(--font-dm-sans)] text-[#1a1a1a] text-xl hover:opacity-60 transition-opacity">Volver al inicio</a>
           </nav>
 
           {/* Logo + Copyright */}
