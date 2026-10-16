@@ -2,9 +2,12 @@
 import Image from "next/image";
 import { supabase } from '@/lib/supabase'
 import { useEffect } from 'react'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
+
 export default function Home() {
   useEffect(() => {
-    supabase.from('profiles').select('*').then(({ data, error }) => {
+    supabase.from('planes').select('*').order('id').then(({ data }) => {
       console.log('Conexión Supabase:', data, error)
     })
   }, [])
@@ -25,32 +28,11 @@ export default function Home() {
         </div>
 
         {/* Header */}
-        <header className="flex items-center justify-between px-10 py-6">
-          <Image
-            src="/logo_medium.png"
-            alt="Logo"
-            width={204}
-            height={60}
-            priority
-            style={{ width: "auto" }}
-          />
-          <nav className="flex items-center gap-80 mx-auto">
-            <a href="#" className="font-[family-name:var(--font-dm-sans)] text-[#F6F4EE] text-lg tracking-wide hover:opacity-70 transition-opacity font-medium">Planes Move</a>
-            <a href="#" className="font-[family-name:var(--font-dm-sans)] text-[#F6F4EE] text-lg tracking-wide hover:opacity-70 transition-opacity font-medium">Agenda</a>
-            <a href="#" className="font-[family-name:var(--font-dm-sans)] text-[#F6F4EE] text-lg tracking-wide hover:opacity-70 transition-opacity font-medium">Nosotros</a>
-            <a href="#" className="font-[family-name:var(--font-dm-sans)] text-[#F6F4EE] text-lg tracking-wide hover:opacity-70 transition-opacity">Contacto</a>
-          </nav>
-
-          {/* Mi Perfil */}
-          <div className="flex items-center gap-3">
-            <span className="font-[family-name:var(--font-dm-sans)] text-[#F6F4EE] font-medium text-lg">Mi perfil</span>
-            <div className="w-9 h-9 rounded-full border-2 border-white bg-white" />
-          </div>
-        </header>
+        <Header />
 
         {/* Texto central */}
         <div className="flex items-center justify-center mt-80 px-10">
-          <p className="font-[family-name:var(--font-instrument-serif)] text-[#F6F4EE] text-center text-8xl max-w-8xl leading-relaxed">
+          <p className="font-[family-name:var(--font-instrument-serif)] text-[#F6F4EE] text-center text-8xl max-w-8xl leading-none">
             <span className="italic">MagusMove</span> es un espacio de acompañamiento integral
             <br />
             liderado por María Agustina Cigana.
@@ -440,38 +422,8 @@ export default function Home() {
           </div>
         </div>
       </section>
-            {/* Footer */}
-      <footer style={{ backgroundColor: "#ffffff" }} className="pt-32 pb-24">
-        
-        {/* Línea separadora */}
-        <div style={{ borderTop: "1px solid #1a1a1a" }} className="mb-12" />
-
-        {/* Botonera + Logo */}
-        <div className="flex items-center justify-between px-50">
-          
-          {/* Links */}
-          <nav className="flex items-center gap-50">
-            <a href="#" className="font-[family-name:var(--font-dm-sans)] text-[#1a1a1a] text-xl hover:opacity-60 transition-opacity">Términos y condiciones</a>
-            <a href="#" className="font-[family-name:var(--font-dm-sans)] text-[#1a1a1a] text-xl hover:opacity-60 transition-opacity">Política de privacidad</a>
-            <a href="#" className="font-[family-name:var(--font-dm-sans)] text-[#1a1a1a] text-xl hover:opacity-60 transition-opacity">Contacto</a>
-            <a href="#" className="font-[family-name:var(--font-dm-sans)] text-[#1a1a1a] text-xl hover:opacity-60 transition-opacity">Volver al inicio</a>
-          </nav>
-
-          {/* Logo + Copyright */}
-          <div className="flex items-center gap-6">
-            <Image
-              src="/logo_medium.png"
-              alt="Logo"
-              width={180}
-              height={60}
-              style={{ width: "auto", filter: "brightness(0)" }}
-            />
-            <span className="font-[family-name:var(--font-dm-sans)] text-[#1a1a1a] text-xl">© 2026 All Rights Reserved.</span>
-          </div>
-
-        </div>
-
-      </footer>
+      {/* Footer */}
+      <Footer />
     </main>
   );
 }
