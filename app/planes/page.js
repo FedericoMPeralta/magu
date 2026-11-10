@@ -5,42 +5,22 @@ import { useEffect, useState } from 'react'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
-export default function Home() {
+export default function Planes() {
   const [planes, setPlanes] = useState([])
+  const [cargando, setCargando] = useState(true)
 
   useEffect(() => {
     supabase.from('planes').select('*').order('id').then(({ data }) => {
       if (data) setPlanes(data)
+      setCargando(false)
     })
   }, [])
 
   return (
     <main>
-      {/* Primera sección: imagen de fondo + header + texto */}
-      <div className="relative min-h-screen">
-        {/* Imagen de fondo */}
-        <div className="absolute inset-0 -z-10">
-          <Image
-            src="/fondo_header.png"
-            alt="Fondo"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-black/10" />
-        </div>
-
-        {/* Header */}
-        <Header />
-
-        {/* Texto central */}
-        <div className="flex items-center justify-center mt-80 px-10">
-          <p className="font-[family-name:var(--font-instrument-serif)] text-[#F6F4EE] text-center text-8xl max-w-8xl leading-none">
-            Cada cuerpo tiene su propio pulso interno <br /> por eso <span className="italic">MagusMove</span> tiene un programa hecho a tu ritmo.
-          </p>
-        </div>
+      <div style={{ backgroundColor: "#CCE1E2" }}>
+        <Header color="#0C271D" logoNegro />   
       </div>
-
       {/* Sección de planes */}
       <section style={{ backgroundColor: "#CCE1E2" }} className="px-16 py-24">
         <p className="font-[family-name:var(--font-instrument-serif)] text-[#1a1a1a] text-4xl text-center max-w-7xl mx-auto leading-none mb-24">
@@ -48,7 +28,15 @@ export default function Home() {
         </p>
 
         <div className="flex gap-6 px-4">
-          {planes.map((plan, i) => (
+          {cargando
+            ? [1, 2, 3, 4].map((n) => (
+                <div
+                  key={n}
+                  className="rounded-3xl animate-pulse"
+                  style={{ flex: 1, minHeight: "900px", backgroundColor: "rgba(26,26,26,0.06)" }}
+                />
+              ))
+            : planes.map((plan, i) => (
             <div
               key={plan.id}
               className="flex flex-col p-8 rounded-3xl relative overflow-hidden"

@@ -8,7 +8,6 @@ import Footer from '@/components/Footer'
 export default function Home() {
   useEffect(() => {
     supabase.from('planes').select('*').order('id').then(({ data }) => {
-      console.log('Conexión Supabase:', data, error)
     })
   }, [])
   return (

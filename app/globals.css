@@ -12,3 +12,20 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+@keyframes respirar-grande {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.85); }
+}
+
+.grupo-circulo:hover .circulo-respira {
+  animation: respirar-grande 4s ease-in-out infinite;
+}
+
+.circulo-hover {
+  transition: transform 1.2s ease-in-out;
+}
+
+.grupo-circulo:hover .circulo-hover {
+  transform: scale(1.35);
+}
