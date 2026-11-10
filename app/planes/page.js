@@ -16,6 +16,14 @@ export default function Planes() {
     })
   }, [])
 
+  // Colores de cada card (en orden). El texto y los bordes se adaptan al fondo.
+  const estilosCards = [
+    { bg: "#A4BEC6", fg: "#1a1a1a", nota: "rgba(26,26,26,0.55)" },
+    { bg: "#F6F4EE", fg: "#1a1a1a", nota: "rgba(26,26,26,0.45)" },
+    { bg: "#0C271D", fg: "#F6F4EE", nota: "rgba(246,244,238,0.55)" },
+    { bg: "#D7FCA4", fg: "#1a1a1a", nota: "rgba(26,26,26,0.5)" },
+  ]
+
   return (
     <main>
       <div style={{ backgroundColor: "#CCE1E2" }}>
@@ -36,113 +44,126 @@ export default function Planes() {
                   style={{ flex: 1, minHeight: "900px", backgroundColor: "rgba(26,26,26,0.06)" }}
                 />
               ))
-            : planes.map((plan, i) => (
-            <div
-              key={plan.id}
-              className="flex flex-col p-8 rounded-3xl relative overflow-hidden"
-              style={{
-                boxShadow: "0 0 0 1px rgba(0,0,0,0.15), 0 4px 24px rgba(0,0,0,0.10)",
-                flex: 1,
-                isolation: "isolate",
-              }}
-            >
-              {/* Listón Próximamente */}
-              {plan.proximamente && (
-                <div
-                  className="absolute font-[family-name:var(--font-dm-sans)] text-[#1a1a1a] font-medium"
-                  style={{
-                    backgroundColor: "#A4BEC6",
-                    top: "80px",
-                    right: "-180px",
-                    width: "750px",
-                    height: "65px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: "24px",
-                    transform: "rotate(25deg)",
-                    transformOrigin: "center",
-                    zIndex: 10,
-                    opacity: 1,
-                    letterSpacing: "0.2em",
-                  }}
-                >
-                  PRÓXIMAMENTE
-                </div>
-              )}
+            : planes.map((plan, i) => {
+                const { bg, fg, nota } = estilosCards[i % estilosCards.length]
+                return (
+                  <div
+                    key={plan.id}
+                    className="flex flex-col p-8 rounded-3xl relative overflow-hidden"
+                    style={{
+                      backgroundColor: bg,
+                      color: fg,
+                      "--fg": fg,
+                      "--bg": bg,
+                      flex: 1,
+                      
+                      isolation: "isolate",
+                    }}
+                  >
+                    {/* Listón Próximamente */}
+                    {plan.proximamente && (
+                      <div
+                        className="absolute font-[family-name:var(--font-dm-sans)] text-[#1a1a1a] font-medium"
+                        style={{
+                          backgroundColor: "#A4BEC6",
+                          top: "80px",
+                          right: "-180px",
+                          width: "750px",
+                          height: "65px",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontSize: "24px",
+                          transform: "rotate(25deg)",
+                          transformOrigin: "center",
+                          zIndex: 10,
+                          opacity: 1,
+                          letterSpacing: "0.2em",
+                        }}
+                      >
+                        PRÓXIMAMENTE
+                      </div>
+                    )}
 
-              <div className="flex flex-col h-full gap-6" style={{ opacity: plan.proximamente ? 0.15 : 1 }}>
+                    <div className="flex flex-col h-full gap-6" style={{ opacity: plan.proximamente ? 0.15 : 1 }}>
 
-                {/* Número en círculo */}
-                <div className="flex justify-end">
-                  <div className="w-10 h-10 rounded-full border border-[#1a1a1a] flex items-center justify-center">
-                    <span className="font-[family-name:var(--font-dm-sans)] text-[#1a1a1a] text-sm">0{i + 1}</span>
+                      {/* Número en círculo */}
+                      <div className="flex justify-end">
+                        <div
+                          className="w-10 h-10 rounded-full flex items-center justify-center"
+                          style={{ border: `1px solid ${fg}` }}
+                        >
+                          <span className="font-[family-name:var(--font-dm-sans)] text-sm">0{i + 1}</span>
+                        </div>
+                      </div>
+
+                      {/* Nombre del plan */}
+                      <p className="font-[family-name:var(--font-instrument-serif)] text-8xl italic leading-tight">
+                        {plan.nombre}
+                      </p>
+
+                      {/* Descripción */}
+                      <p className="font-[family-name:var(--font-instrument-serif)] text-4xl leading-snug">
+                        Un entrenamiento a distancia con rutina personalizada y seguimiento profesional
+                      </p>
+
+                      {/* Línea */}
+                      <div style={{ borderTop: `1px solid ${fg}`, margin: "0 16px" }} />
+
+                      {/* Objetivo */}
+                      <div className="flex flex-col gap-2">
+                        <p className="font-[family-name:var(--font-dm-sans)] text-base font-bold">Objetivo:</p>
+                        <p className="font-[family-name:var(--font-dm-sans)] text-base leading-snug">
+                          Empezar a entrenar, volver a moverse y/o mantener una rutina a tu ritmo con una guía profesional.
+                        </p>
+                      </div>
+
+                      {/* Incluye */}
+                      <div className="flex flex-col gap-2">
+                        <p className="font-[family-name:var(--font-dm-sans)] text-base font-bold">Incluye:</p>
+                        <ul className="font-[family-name:var(--font-dm-sans)] text-base flex flex-col gap-1">
+                          <li>· Asesoría online.</li>
+                          <li>· 1 encuentro individual por mes online.</li>
+                          <li>· Seguimiento cada 2 semanas a distancia.</li>
+                          <li>· Plan de alimentación (genérico).</li>
+                          <li>· 1 video por semana.</li>
+                          <li>· ClubMove: Newsletter semanal</li>
+                        </ul>
+                      </div>
+
+                      {/* Línea */}
+                      <div style={{ borderTop: `1px solid ${fg}`, margin: "0 16px" }} />
+
+                      {/* Precio */}
+                      <div className="flex flex-col gap-1">
+                        <p className="font-[family-name:var(--font-dm-sans)] text-base font-bold">Suscripción mensual</p>
+                        <p className="font-[family-name:var(--font-dm-sans)] text-7xl">
+                          $ {Number(plan.precio).toLocaleString('es-AR')}
+                          <sup style={{ color: nota, fontSize: "12px" }}>(*)</sup>
+                          .-
+                        </p>
+                      </div>
+
+                      {/* Línea */}
+                      <div style={{ borderTop: `1px solid ${fg}`, margin: "0 16px" }} />
+
+                      {/* Nota */}
+                      <p className="font-[family-name:var(--font-dm-sans)] text-sm" style={{ color: nota }}>
+                        *Materiales de trabajo <span className="underline">no</span> incluidos.
+                      </p>
+
+                      {/* Botón */}
+                      <button
+                        className="font-[family-name:var(--font-dm-sans)] mt-auto self-start flex items-center gap-3 px-8 py-4 rounded-full text-base transition-all cursor-pointer hover:bg-[var(--fg)] hover:text-[var(--bg)]"
+                        style={{ border: `1px solid ${fg}` }}
+                      >
+                        Quiero contratar el plan <span>→</span>
+                      </button>
+
+                    </div>
                   </div>
-                </div>
-
-                {/* Nombre del plan */}
-                <p className="font-[family-name:var(--font-instrument-serif)] text-[#1a1a1a] text-5xl italic leading-tight">
-                  {plan.nombre}
-                </p>
-
-                {/* Descripción */}
-                <p className="font-[family-name:var(--font-dm-sans)] text-[#1a1a1a] text-base leading-snug">
-                  Un entrenamiento a distancia con rutina personalizada y seguimiento profesional
-                </p>
-
-                {/* Línea */}
-                <div style={{ borderTop: "1px solid #1a1a1a", margin: "0 16px" }} />
-
-                {/* Objetivo */}
-                <div className="flex flex-col gap-2">
-                  <p className="font-[family-name:var(--font-dm-sans)] text-[#1a1a1a] text-base font-bold">Objetivo:</p>
-                  <p className="font-[family-name:var(--font-dm-sans)] text-[#1a1a1a] text-base leading-snug">
-                    Empezar a entrenar, volver a moverse y/o mantener una rutina a tu ritmo con una guía profesional.
-                  </p>
-                </div>
-
-                {/* Incluye */}
-                <div className="flex flex-col gap-2">
-                  <p className="font-[family-name:var(--font-dm-sans)] text-[#1a1a1a] text-base font-bold">Incluye:</p>
-                  <ul className="font-[family-name:var(--font-dm-sans)] text-[#1a1a1a] text-base flex flex-col gap-1">
-                    <li>· Asesoría online.</li>
-                    <li>· 1 encuentro individual por mes online.</li>
-                    <li>· Seguimiento cada 2 semanas a distancia.</li>
-                    <li>· Plan de alimentación (genérico).</li>
-                    <li>· 1 video por semana.</li>
-                    <li>· ClubMove: Newsletter semanal</li>
-                  </ul>
-                </div>
-
-                {/* Línea */}
-                <div style={{ borderTop: "1px solid #1a1a1a", margin: "0 16px" }} />
-
-                {/* Precio */}
-                <div className="flex flex-col gap-1">
-                  <p className="font-[family-name:var(--font-dm-sans)] text-[#1a1a1a] text-base font-bold">Suscripción mensual</p>
-                  <p className="font-[family-name:var(--font-instrument-serif)] text-[#1a1a1a] text-4xl">
-                    $ {Number(plan.precio).toLocaleString('es-AR')}
-                    <sup style={{ color: "#999", fontSize: "12px" }}>(*)</sup>
-                    .-
-                  </p>
-                </div>
-
-                {/* Línea */}
-                <div style={{ borderTop: "1px solid #1a1a1a", margin: "0 16px" }} />
-
-                {/* Nota */}
-                <p className="font-[family-name:var(--font-dm-sans)] text-sm" style={{ color: "#999" }}>
-                  *Materiales de trabajo <span className="underline">no</span> incluidos.
-                </p>
-
-                {/* Botón */}
-                <button className="font-[family-name:var(--font-dm-sans)] mt-auto self-start flex items-center gap-3 px-8 py-4 rounded-full border border-[#1a1a1a] text-[#1a1a1a] text-base hover:bg-[#1a1a1a] hover:text-white transition-all">
-                  Quiero contratar el plan <span>→</span>
-                </button>
-
-              </div>
-            </div>
-          ))}
+                )
+              })}
         </div>
       </section>
       {/* Transición CCE1E2 → D7FCA4 */}
@@ -174,57 +195,87 @@ export default function Planes() {
           ))}
         </div>
 
-        {/* Botón */}
-        <div className="flex justify-center mt-16">
+        {/* ¿Duda? + Botón */}
+        <div className="flex flex-col items-center mt-16 gap-4">
+          <p className="font-[family-name:var(--font-dm-sans)] text-[#1a1a1a] text-base">
+            ¿Hay alguna duda que no encontraste?
+          </p>
           <button
-            className="font-[family-name:var(--font-dm-sans)] flex items-center gap-2 px-8 py-3 rounded-full text-[#1a1a1a] text-xl hover:opacity-80 transition-all"
-            style={{ backgroundColor: "#CCE1E2" }}
+            className="font-[family-name:var(--font-dm-sans)] flex items-center gap-2 px-8 py-3 rounded-full text-xl hover:opacity-80 transition-all cursor-pointer"
+            style={{ backgroundColor: "#1a1a1a", color: "#CCE1E2" }}
           >
-            Ver todos los planes <span>→</span>
+            Consultar ahora <span style={{ color: "#CCE1E2" }}>→</span>
           </button>
         </div>
       </section>
 
-            {/* Transición D7FCA4 → CCE1E2 */}
+      {/* Transición D7FCA4 → CCE1E2 */}
       <div style={{ height: "120px", background: "linear-gradient(to bottom, #D7FCA4, #CCE1E2)" }} />
 
-      {/* Sección Método carrusel */}
-      <section style={{ backgroundColor: "#CCE1E2" }} className="py-24 flex flex-col">
+      {/* Sección Pasos (línea de tiempo) */}
+      <section style={{ backgroundColor: "#CCE1E2" }} className="relative py-24 pb-[520px]">
+        <div className="relative">
 
-        {/* Título */}
-        <p className="font-[family-name:var(--font-instrument-serif)] text-[#1a1a1a] text-5xl text-center mx-auto leading-relaxed mb-12 px-16">
-          Nuestro método para sostener el movimiento
-        </p>
+          {/* Línea de punta a punta (pasa por el centro de los círculos) */}
+          <div
+            className="absolute left-0 w-full border-t border-[#1a1a1a]"
+            style={{ top: "56px" }}
+          />
 
-        {/* Línea superior */}
-        <div style={{ borderTop: "1px solid #1a1a1a" }} />
 
-        {/* Items */}
-        <div className="flex gap-20 px-64 py-12 justify-center">
-          {[
-            { num: "01", titulo: "Trabajar\n la conciencia\n corporal" },
-            { num: "02", titulo: "Movimiento\nsegún\ntu ritmo" },
-            { num: "03", titulo: "Paciencia, frecuencia\n y constancia" },
-            { num: "04", titulo: "Guía y monitoreo constante" },
-          ].map((item, i) => (
-            <div key={i} className="flex flex-col gap-4" style={{ width: "750px" }}>
-              <span className="font-[family-name:var(--font-dm-sans)] text-[#1a1a1a] text-xl underline underline-offset-4 text-center">
-                {item.num}
-              </span>
-              <p className="font-[family-name:var(--font-instrument-serif)] text-[#1a1a1a] text-8xl leading-none text-center whitespace-pre-line">
-                {item.titulo}
-              </p>
-              <p className="font-[family-name:var(--font-dm-sans)] text-[#1a1a1a] text-base leading-tight text-center">
-                Descubrí nuestros planes de<br /> entrenamiento con clases,<br /> seguimiento y mucho más.
-              </p>
-            </div>
-          ))}
+          <div className="flex justify-center gap-16 px-34">
+            {[
+              {
+                titulo: "Contratá tu plan favorito.",
+                texto: "Una vez que se confirme el pago ya podrás comenzar.",
+              },
+              {
+                titulo: "Create un usuario y contraseña.",
+                texto: "Desde nuestra web create un usuario (clickeando en la esquina superior derecha “Ingresar”).",
+              },
+              {
+                titulo: "Completá tu perfil en nuestra web.",
+                texto: "Ingresá con tu usuario y contraseña y completá tu perfil con todos tus datos. Este paso es muy importante para una buena alineación con tu rutina. De lo contrario no podrás comenzar con el entrenamiento.",
+              },
+              {
+                titulo: "Agendá tu primer encuentro con Magus.",
+                texto: "Tendrás que agendar tu primer encuentro online con Magus. *Excepto el plan MoveYogui.",
+              },
+              {
+                titulo: "Empezar a moverte con nosotros!",
+                texto: "Todo listo! Según tu plan empezá a moverte y a cambiar tu estilo de vida con nosotros.",
+              },
+            ].map((paso, i) => (
+              <div key={i} className="shrink-0 w-[340px] flex flex-col items-start">
+
+                {/* "Paso N" centrado sobre el círculo */}
+                <div className="relative flex flex-col items-center w-10">
+                  <p className="h-7 mb-2 leading-7 whitespace-nowrap font-[family-name:var(--font-dm-sans)] text-[#1a1a1a] text-lg font-medium">
+                    Paso {i + 1}
+                  </p>
+                  <div className="w-10 h-10 rounded-full bg-[#587372]/20 flex items-center justify-center">
+                    <div className="w-4 h-4 rounded-full bg-[#0C271D]" />
+                  </div>
+                </div>
+
+                {/* Título + texto, alineados a la izquierda */}
+                <div className="mt-8 flex flex-col gap-3 text-left">
+                  <p className="font-[family-name:var(--font-instrument-serif)] text-[#1a1a1a] text-5xl leading-none whitespace-pre-line">
+                    {paso.titulo}
+                  </p>
+                  <p className="font-[family-name:var(--font-dm-sans)] text-[#1a1a1a] text-base leading-snug">
+                    {paso.texto}
+                  </p>
+                </div>
+
+              </div>
+            ))}
+          </div>
+
         </div>
-
-        {/* Línea inferior */}
-        <div style={{ borderTop: "1px solid #1a1a1a" }} />
-
+      <div className="absolute bottom-0 left-0 w-full border-t border-[#1a1a1a]" />
       </section>
+
       {/* Sección Agenda */}
       <section style={{ backgroundColor: "#CCE1E2" }} className="py-24 flex flex-col px-16">
 

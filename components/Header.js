@@ -1,13 +1,24 @@
 'use client'
 import Image from "next/image"
 import { useState } from "react"
+import { usePathname } from "next/navigation"
 export default function Header({ color = "#F6F4EE", logoNegro = false }) {
 
   const [menuAbierto, setMenuAbierto] = useState(false)
 
+  const pathname = usePathname()
+
+  const links = [
+    { label: "Planes Move", href: "/planes" },
+    { label: "Agenda", href: "/agenda" },
+    { label: "Nosotros", href: "/nosotros" },
+    { label: "Contacto", href: "/contacto" },
+  ]
+
   const linkStyle = { color }
 
   return (
+    
     <header className="flex items-center justify-between px-10 py-6 relative">
       <a href="/pulso">
       <Image
@@ -20,10 +31,21 @@ export default function Header({ color = "#F6F4EE", logoNegro = false }) {
       />
     </a>
       <nav className="flex items-center gap-80 mx-auto">
-        <a href="/planes" style={linkStyle} className="font-[family-name:var(--font-dm-sans)] text-lg tracking-wide hover:opacity-70 transition-opacity font-medium">Planes Move</a>
-        <a href="#" style={linkStyle} className="font-[family-name:var(--font-dm-sans)] text-lg tracking-wide hover:opacity-70 transition-opacity font-medium">Agenda</a>
-        <a href="#" style={linkStyle} className="font-[family-name:var(--font-dm-sans)] text-lg tracking-wide hover:opacity-70 transition-opacity font-medium">Nosotros</a>
-        <a href="#" style={linkStyle} className="font-[family-name:var(--font-dm-sans)] text-lg tracking-wide hover:opacity-70 transition-opacity">Contacto</a>
+        {links.map((link) => {
+          const activo = pathname === link.href || pathname.startsWith(link.href + "/")
+          return (
+            <a
+              key={link.label}
+              href={link.href}
+              style={{ color, textDecorationColor: color }}
+              className={`font-[family-name:var(--font-dm-sans)] text-lg tracking-wide font-medium hover:opacity-70 transition-opacity underline-offset-8 ${
+                activo ? "underline decoration-1" : "no-underline"
+              }`}
+            >
+              {link.label}
+            </a>
+          )
+        })}
       </nav>
 
       {/* Mi Perfil */}
