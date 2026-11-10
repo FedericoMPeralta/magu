@@ -9,7 +9,7 @@ export default function Header({ color = "#F6F4EE", logoNegro = false }) {
 
   return (
     <header className="flex items-center justify-between px-10 py-6 relative">
-      <a href="/">
+      <a href="/pulso">
       <Image
         src="/logo_medium.png"
         alt="Logo"
