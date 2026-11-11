@@ -5,7 +5,7 @@ export default function Pulso() {
   return (
     <main
       className="relative min-h-screen overflow-hidden"
-      style={{ background: "linear-gradient(to bottom, #CCE1E2 0%, #CCE1E2 70%, #D7FCA4 100%)" }}
+      style={{ background: "linear-gradient(to bottom, #A4BEC6 0%, #A4BEC6 70%, #D7FCA4 100%)" }}
     >
     {/* Círculo centrado en la pantalla */}
       <div className="absolute inset-0 flex items-center justify-center">
@@ -30,13 +30,13 @@ export default function Pulso() {
       </div>
 
       {/* Título en la zona amarilla */}
-      <div className="absolute bottom-0 left-0 w-full flex justify-center pb-12 px-10 pointer-events-none">
-        <div className="w-full max-w-7xl">
+      <div className="absolute bottom-0 left-0 w-full flex justify-center pb-8 px-4 pointer-events-none">
+        <div className="w-[95vw]">
           <Image
             src="/titulo_animacion.png"
             alt="MagusMove"
-            width={1400}
-            height={300}
+            width={2400}
+            height={514}
             style={{ width: "100%", height: "auto" }}
             priority
           />
