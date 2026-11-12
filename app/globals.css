@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
 body {
-  min-width: 2560px;
   margin: 0;
 }
 

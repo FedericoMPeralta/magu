@@ -33,11 +33,11 @@ export default function Contacto() {
         className="relative"
         style={{ background: "linear-gradient(to bottom, #CCE1E2 0%, #D7FCA4 55%)" }}
       >
-        <Header color="#0C271D" logoNegro /> 
+        <Header color="#0C271D" logoNegro />
 
         {/* Título */}
-        <div className="pt-32 pb-8">
-          <h1 className="font-[family-name:var(--font-instrument-serif)] text-[#1a1a1a] text-5xl text-center leading-none">
+        <div className="pt-10 md:pt-20 xl:pt-32 pb-6 md:pb-8">
+          <h1 className="font-[family-name:var(--font-instrument-serif)] text-[#1a1a1a] text-4xl md:text-5xl text-center leading-none">
             Contactános ahora
           </h1>
         </div>
@@ -46,7 +46,7 @@ export default function Contacto() {
         {/* Formulario */}
         <form
           onSubmit={handleSubmit}
-          className="max-w-3xl mx-auto px-6 pt-16 pb-32 flex flex-col gap-6"
+          className="max-w-3xl mx-auto px-6 md:px-10 pt-10 md:pt-16 pb-16 md:pb-32 flex flex-col gap-6"
         >
           <div className="flex flex-col gap-2">
             <label htmlFor="nombre" className="font-[family-name:var(--font-dm-sans)] text-[#1a1a1a] text-base px-5">
@@ -112,7 +112,7 @@ export default function Contacto() {
             />
           </div>
 
-          <div className="flex items-center justify-end gap-6 mt-2">
+          <div className="flex flex-wrap items-center justify-end gap-x-6 gap-y-3 mt-2">
             {estado === 'ok' && (
               <span className="font-[family-name:var(--font-dm-sans)] text-[#0E2A22] text-sm">
                 ¡Mensaje enviado! Te respondemos pronto.
@@ -138,7 +138,7 @@ export default function Contacto() {
       <Newsletter />
 
       {/* Espacio entre newsletter y footer */}
-      <div style={{ height: "72px", backgroundColor: "#D7FCA4" }} />
+      <div className="h-10 md:h-[72px]" style={{ backgroundColor: "#D7FCA4" }} />
 
       {/* Footer */}
       <Footer />
